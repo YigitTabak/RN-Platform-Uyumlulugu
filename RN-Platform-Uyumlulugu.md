@@ -102,18 +102,24 @@ useEffect(() => {
 }, []);
 
 // iyi
-import { BackHandler, Platform } from 'react-native';
+import { BackHandler, Platform, Alert } from 'react-native';
+
 useEffect(() => {
-if (Platform.OS === 'android') {
-const backAction = () => {
-Alert.alert('Dikkat!', 'Çıkmak istiyor musunuz?', [
-{ text: 'Hayır', style: 'cancel' },
-{ text: 'Evet', onPress: () => BackHandler.exitApp() }
-]);
-return true;
-};
-BackHandler.addEventListener('hardwareBackPress', backAction);
-return () => BackHandler.removeEventListener('hardwareBackPress', backAction);
-}
-}, [] );
+  if (Platform.OS === 'android') {
+    const backAction = () => {
+      Alert.alert(
+        'Dikkat!', 
+        'Çıkmak istiyor musunuz?', [
+          { text: 'Hayır', style: 'cancel' },
+          { text: 'Evet', onPress: () => BackHandler.exitApp() }
+        ]
+      );
+      return true;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => BackHandler.removeEventListener('hardwareBackPress', backAction);
+  }
+}, []);
 ```
